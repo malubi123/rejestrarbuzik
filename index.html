@@ -22,7 +22,7 @@
 
         window.addEventListener('message', function(event) {
             // Zastąp adres URL poniżej na URL swojej strony GitHub Pages
-            if (event.origin === 'https://twoja-nazwa-uzytkownika.github.io') {
+            if (event.origin === 'https://malubi123.github.io/rejestrarbuzik/') {
                 const isValid = validateUser(event.data);
                 event.source.postMessage({ valid: isValid }, event.origin);
             }

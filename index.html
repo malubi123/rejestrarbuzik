@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestr Arbuzik</title>
+    <script>
+        function registerUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userData = { username, password };
+
+            // Zapisz dane użytkownika w localStorage
+            localStorage.setItem('arbuzik_user_data', JSON.stringify(userData));
+            alert('Rejestracja zakończona sukcesem!');
+        }
+
+        function validateUser(inputData) {
+            const storedData = JSON.parse(localStorage.getItem('arbuzik_user_data'));
+            return storedData && storedData.username === inputData.username && storedData.password === inputData.password;
+        }
+
+        window.addEventListener('message', function(event) {
+            // Zastąp adres URL poniżej na URL swojej strony GitHub Pages
+            if (event.origin === 'https://twoja-nazwa-uzytkownika.github.io') {
+                const isValid = validateUser(event.data);
+                event.source.postMessage({ valid: isValid }, event.origin);
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Rejestr Arbuzik</h1>
+    <form onsubmit="event.preventDefault(); registerUser();">
+        <label for="username">Nazwa użytkownika:</label>
+        <input type="text" id="username" required>
+        <br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="submit">Zarejestruj</button>
+    </form>
+</body>
+</html>
